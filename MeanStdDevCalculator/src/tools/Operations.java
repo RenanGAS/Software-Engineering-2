@@ -1,7 +1,10 @@
 package src.tools;
 import java.lang.Math;
+import java.text.DecimalFormat;
 
 public class Operations {
+	private static final DecimalFormat df = new DecimalFormat("0.00");
+	 
     public double average(LinkedList list){
         LinkedList.Node currNode = list.head;
         double sumValues = 0;
@@ -11,7 +14,7 @@ public class Operations {
             currNode = currNode.next;
         }
 
-        return sumValues / list.numNodes;
+        return Double.parseDouble(df.format(sumValues / list.numNodes));
     }
 
     public double std(LinkedList list){
@@ -26,6 +29,6 @@ public class Operations {
             currNode = currNode.next;
         }
 
-        return Math.sqrt(summation / (list.numNodes - 1));
+        return Double.parseDouble(df.format(Math.sqrt(summation / (list.numNodes - 1))));
     }
 }

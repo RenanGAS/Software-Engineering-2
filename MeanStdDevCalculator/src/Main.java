@@ -40,12 +40,10 @@ public class Main {
         }
 
         Operations operations = new Operations();
-
-        double averageList = operations.average(list);
-        System.out.format("Média: %.2f\n", averageList);
-
-        double stdList = operations.std(list);
-        System.out.format("Desvio Padrão: %.2f\n", stdList);
+        
+        System.out.format("Média: %f\n", operations.average(list));
+        
+        System.out.format("Desvio Padrão: %f\n", operations.std(list));
     }
 }
 
