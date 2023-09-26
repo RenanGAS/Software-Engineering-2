@@ -35,9 +35,6 @@ public class ProbeCalculator {
 		List<Double> xList = this.linkedList.getXValues();
 		List<Double> yList = this.linkedList.getYValues();
 		
-		System.out.println(xList.toString());
-		System.out.println(yList.toString());
-		
 		int numElements = this.linkedList.getNumElements();
 		
 		for (int i = 0; i < numElements; i++) {
