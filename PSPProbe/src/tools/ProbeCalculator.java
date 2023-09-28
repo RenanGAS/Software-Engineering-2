@@ -1,6 +1,5 @@
 package src.tools;
 
-import java.io.IOException;
 import java.util.List;
 
 /*
@@ -9,50 +8,57 @@ import java.util.List;
 
 public class ProbeCalculator {
 	private LinkedList linkedList;
+
 	private Double xAverage;
+
 	private Double yAverage;
+
 	private Double summationX;
+
 	private Double summationY;
+
 	private Double summationX2;
+
 	private Double summationY2;
-	private Double summationXY;
-	
+
+	private Double summationXy;
+
 	public ProbeCalculator(LinkedList linkedList) {
 		this.linkedList = linkedList;
-		this.xAverage= -1.0;
-		this.yAverage= -1.0;
-		this.summationX= -1.0;
-		this.summationY= -1.0;
-		this.summationX2= -1.0;
-		this.summationY2= -1.0;
-		this.summationXY= -1.0;
+		this.xAverage = 0.0;
+		this.yAverage = 0.0;
+		this.summationX = 0.0;
+		this.summationY = 0.0;
+		this.summationX2 = 0.0;
+		this.summationY2 = 0.0;
+		this.summationXy = 0.0;
 	}
-	
+
 	/**
 	 * Itera sobre as listas de valores de X e Y da respectiva LinkedList, calculando valores que serão usados posteriormente em LRM
 	 */
 	public void precalculateSubOperations() throws IndexOutOfBoundsException {
-		List<Double> xList = this.linkedList.getXValues();
-		List<Double> yList = this.linkedList.getYValues();
-		
+		List<Double> xList = this.linkedList.getXvalues();
+		List<Double> yList = this.linkedList.getYvalues();
+
 		int numElements = this.linkedList.getNumElements();
-		
+
 		for (int i = 0; i < numElements; i++) {
 			Double xValue = xList.get(i);
 			Double yValue = yList.get(i);
-			
+
 			this.xAverage += xValue;
 			this.yAverage += yValue;
-			
+
 			this.summationX += xValue;
 			this.summationY += yValue;
-			
+
 			this.summationX2 += xValue * xValue;
 			this.summationY2 += yValue * yValue;
-			
-			this.summationXY += xValue * yValue;
+
+			this.summationXy += xValue * yValue;
 		}
-		
+
 		this.xAverage /= numElements;
 		this.yAverage /= numElements;
 	}
@@ -73,15 +79,15 @@ public class ProbeCalculator {
 		return this.summationY;
 	}
 
-	public Double getSummationX2() {
+	public Double getSummationXp() {
 		return this.summationX2;
 	}
 
-	public Double getSummationY2() {
+	public Double getSummationYp() {
 		return this.summationY2;
 	}
 
-	public Double getSummationXY() {
-		return this.summationXY;
+	public Double getSummationXy() {
+		return this.summationXy;
 	}
 }
