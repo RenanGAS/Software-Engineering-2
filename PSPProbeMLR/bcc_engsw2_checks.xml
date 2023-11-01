@@ -1,0 +1,515 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+          "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+          "https://checkstyle.org/dtds/configuration_1_3.dtd">
+
+<module name="Checker">
+	 <property name="severity" value="error"/>
+	 <property name="fileExtensions" value="java, properties, xml"/>
+
+	<!-- Excludes all 'module-info.java' files              -->
+	<!-- See https://checkstyle.org/config_filefilters.html -->
+	<module name="BeforeExecutionExclusionFileFilter">
+		<property name="fileNamePattern" value="module\-info\.java$"/>
+	</module>
+
+  	<!-- Miscellaneous other checks.                   -->
+	<module name="RegexpSingleline">
+		<property name="format" value="\s+$"/>
+		<property name="minimum" value="0"/>
+		<property name="maximum" value="0"/>
+		<property name="message" value="Line has trailing spaces."/>
+	</module>
+
+	<!--
+	https://checkstyle.org/config_header.html
+	-->
+	<module name="Header">
+		<property name="charset" value="UTF-8" />
+		<property name="fileExtensions" value="java" />
+	</module>
+
+	<!-- Checks whether files end with a line separator. -->
+	<module name="NewlineAtEndOfFile">
+		<property name="lineSeparator" value="lf" />
+		<property name="fileExtensions" value="java" />
+	</module>
+
+	<module name="TreeWalker">
+		<!--
+		https://checkstyle.org/config_annotation.html
+		-->
+
+		<!-- Checks location of annotation on language elements. -->
+		<module name="AnnotationLocation">
+			<!-- Allow annotations to be located on the same line as target element. -->
+			<property name="allowSamelineMultipleAnnotations" value="false" />
+
+			<!-- Allow single parameterless annotation to be located on the same line as target element. -->
+			<property name="allowSamelineSingleParameterlessAnnotation" value="false" />
+
+			<!-- Allow one and only parameterized annotation to be located on the same line as target element. -->
+			<property name="allowSamelineParameterizedAnnotation" value="false" />
+		</module>
+
+		<!-- Checks the style of elements in annotations. -->
+		<module name="AnnotationUseStyle">
+			<property name="elementStyle" value="compact" />
+			<property name="closingParens" value="never" />
+			<property name="trailingArrayComma" value="never" />
+		</module>
+
+		<!-- Checks that all package annotations are in the package-info.java file. -->
+		<module name="PackageAnnotation" /> 
+
+		<!-- Allows to specify what warnings that @SuppressWarnings is not allowed to suppress. You can also specify a list of TokenTypes that the configured warning(s) cannot be suppressed on. -->
+		<module name="SuppressWarnings">
+			<property name="format" value="^.*$" />
+		</module>
+
+
+		<!--
+		Block checks - https://checkstyle.org/config_blocks.html
+		-->
+		<!-- Finds nested blocks (blocks that are used freely in the code). -->
+		<module name="AvoidNestedBlocks">
+			<property name="allowInSwitchCase" value="false" />
+		</module>
+
+		<!-- Checks for empty blocks. -->
+		<module name="EmptyBlock">
+			<property name="option" value="statement" />
+			<property name="tokens" value="LITERAL_WHILE, LITERAL_TRY, LITERAL_CATCH, LITERAL_FINALLY, LITERAL_DO, LITERAL_IF, LITERAL_ELSE, LITERAL_FOR, INSTANCE_INIT, STATIC_INIT, LITERAL_SWITCH, LITERAL_SYNCHRONIZED, LITERAL_DEFAULT" />
+		</module>
+
+		<!-- Checks for the placement of left curly braces ('{') for code blocks. -->
+		<module name="LeftCurly">
+			<property name="option" value="eol" />
+			<property name="ignoreEnums" value="false" />
+		</module>
+
+		<!-- Checks for braces around code blocks. -->
+		<module name="NeedBraces">
+			<property name="allowSingleLineStatement" value="false" />
+			<property name="allowEmptyLoopBody" value="false" />
+		</module>
+	    
+		<module name="RightCurly">
+			<property name="option" value="same" />
+		</module>
+
+
+		<!--
+		Class checks - https://checkstyle.org/config_design.html
+		-->
+
+		<!-- Checks that a class that has only private constructors and has no descendant classes is declared as final. -->
+		<module name="FinalClass" />
+
+		<!-- Makes sure that utility classes (classes that contain only static methods or fields in their API) do not have a public constructor. -->
+		<module name="HideUtilityClassConstructor" />
+
+		<!-- An interface should describe a type. It is therefore inappropriate to define an interface that does not contain any methods but only constants. -->
+		<module name="InterfaceIsType">
+			<property name="allowMarkerInterfaces" value="false" />
+		</module>
+
+		<!-- Ensures that exception classes (classes with names conforming to some pattern and explicitly extending classes with names conforming to other pattern) are immutable, that is, that they have only final fields. -->
+		<module name="MutableException" />
+
+		<!-- Checks that each top-level class, interface, enum or annotation resides in a source file of its own. -->
+		<module name="OneTopLevelClass" />
+
+		<!-- Checks visibility of class members. Only static final, immutable or annotated by specified annotation members may be public; other class members must be private unless the property protectedAllowed or packageAllowed is set.  -->
+		<module name="VisibilityModifier">
+			<property name="packageAllowed" value="true" />
+			<property name="protectedAllowed" value="true" />
+			<property name="allowPublicFinalFields" value="true" />
+			<property name="allowPublicImmutableFields" value="true" />
+		</module>
+
+
+		<!--
+		https://checkstyle.org/config_coding.html
+		-->
+
+		<!-- Detects double brace initialization. -->
+		<module name="AvoidDoubleBraceInitialization"/>
+
+		<!-- Checks if call to superclass constructor without arguments is present. Such invocation is redundant because constructor body implicitly begins with a superclass constructor invocation super() -->
+		<module name="AvoidNoArgumentSuperConstructorCall"/>
+
+		<!-- Checks that classes and records which define a covariant equals() method also override method equals(Object). -->
+		<module name="CovariantEquals" />
+
+		<module name="DeclarationOrder">
+			<property name="ignoreConstructors" value="false" />
+			<property name="ignoreModifiers" value="false" />
+		</module>
+
+		<!-- Check that the default is after all the cases in a switch statement. -->
+		<module name="DefaultComesLast">
+			<property name="skipIfLastAndSharedWithCase" value="false" />
+		</module>
+
+		<!-- Detects empty statements (standalone ";" semicolon). -->
+		<module name="EmptyStatement" />
+
+		<!-- Checks that any combination of String literals is on the left side of an equals() comparison. -->
+		<module name="EqualsAvoidNull" />
+
+		<!-- Checks that classes that either override equals() or hashCode() also overrides the other. -->
+		<module name="EqualsHashCode" />
+
+		<!-- Checks if any class or object member is explicitly initialized to default for its type value. -->
+		<module name="ExplicitInitialization" />
+
+		<!-- Checks for fall-through in switch statements. -->
+		<module name="FallThrough">
+			<property name="checkLastCaseGroup" value="true" />
+		</module>
+
+		<!-- Checks that a local variable or a parameter does not shadow a field that is defined in the same class. --> 
+		<module name="HiddenField">
+			<property name="ignoreConstructorParameter" value="true" />
+			<property name="ignoreSetter" value="true" />
+		</module>
+
+		<!-- Checks for instantiations where a factory method is preferred. -->
+		<module name="IllegalInstantiation"/>
+
+		<!-- Checks that specified types are not declared to be thrown. -->
+		<module name="IllegalThrows"/>
+
+		<!-- Checks for illegal tokens. By default, labels are prohibited. -->
+		<module name="IllegalToken"/>
+
+		<!-- Checks for particular classes or interfaces that should never be used. -->
+		<module name="IllegalType">
+			<property name="validateAbstractClassNames" value="false" />
+			<property name="memberModifiers" value="LITERAL_PUBLIC, LITERAL_PROTECTED, LITERAL_STATIC"/>
+		</module>
+
+		<!-- Checks for assignments in subexpressions -->
+		<module name="InnerAssignment" />
+
+		<!-- Checks that for loop control variables are not modified inside the for block. -->
+		<module name="ModifiedControlVariable"/>
+
+		<module name="MultipleStringLiterals">
+			<property name="allowedDuplicates" value="1" />
+		</module>
+
+		<!-- Checks that each variable declaration is in its own statement and on its own line.  -->
+		<module name="MultipleVariableDeclarations"/>
+
+		<!-- Checks that array initialization do not contain a trailing comma. -->
+		<module name="NoArrayTrailingComma" />
+
+		<!-- Checks that the clone method is not overridden from the Object class. -->
+		<module name="NoClone"/>
+
+		<!-- Checks that enum definition does not contain a trailing comma. -->
+		<module name="NoEnumTrailingComma" />
+
+		<!-- Checks that there is no method finalize with zero parameters. -->
+		<module name="NoFinalizer"/>
+
+		<!-- Checks that there is only one statement per line. -->
+		<module name="OneStatementPerLine"/>
+
+		<!-- Checks that overloaded methods are grouped together. -->
+		<module name="OverloadMethodsDeclarationOrder"/>
+
+		<!-- Ensures that a class has a package declaration, and (optionally) whether the package name matches the directory name for the source file. -->
+		<module name="PackageDeclaration">
+			<property name="matchDirectoryStructure" value="true" />
+		</module>
+
+		<!-- Checks that references to instance variables and methods of the present object are explicitly of the form "this.varName" or "this.methodName(args)" and that those references don't rely on the default behavior when "this." is absent. -->
+		<module name="RequireThis">
+			<property name="checkFields" value="true" />
+			<property name="checkMethods" value="true" />
+			<property name="validateOnlyOverlapping" value="true" />
+		</module>
+
+		<!-- Checks for over-complicated boolean expressions. -->
+		<module name="SimplifyBooleanExpression" />
+
+		<!-- Checks for over-complicated boolean return statements. -->
+		<module name="SimplifyBooleanReturn" />
+
+		<!-- Checks that string literals are not used with == or !=. Since == will compare the object references, not the actual value of the strings, String.equals() should be used. -->
+		<module name="StringLiteralEquality" />
+
+		<!-- Checks that an overriding clone() method invokes super.clone(). -->
+		<module name="SuperClone" />
+
+		<!-- Checks that an overriding finalize() method invokes super.finalize(). -->
+		<module name="SuperFinalize"/>
+
+		<!-- Checks if unnecessary semicolon is used after type declaration. -->
+		<module name="UnnecessarySemicolonAfterOuterTypeDeclaration"/>
+		<module name="UnnecessarySemicolonAfterTypeMemberDeclaration"/>
+		<module name="UnnecessarySemicolonInEnumeration"/>
+		<module name="UnnecessarySemicolonInTryWithResources"/>
+
+		<!-- Checks that a local variable is declared and/or assigned, but not used. -->
+		<module name="UnusedLocalVariable"/>
+
+
+		<!--
+		https://checkstyle.org/config_imports.html
+		-->
+		<module name="AvoidStarImport">
+			<property name="allowClassImports" value="false" />
+			<property name="allowStaticMemberImports" value="true" />
+		</module>
+
+		<!-- Checks for imports from a set of illegal packages. -->
+		<module name="IllegalImport">
+			<property name="illegalPkgs" value="sun.*" />
+		</module>
+
+		<!-- Checks the ordering/grouping of imports. -->
+		<module name="ImportOrder">
+			<property name="ordered" value="true" />
+			<property name="separated" value="true" />
+			<property name="separatedStaticGroups" value="true" />
+			<property name="sortStaticImportsAlphabetically" value="true" />
+			<property name="option" value="bottom" />
+		</module>
+
+		<!-- Checks for redundant import statements. -->
+		<module name="RedundantImport"/>
+
+		<!-- Checks for unused import statements. -->
+		<module name="UnusedImports">
+			<property name="processJavadoc" value="false" />
+		</module>
+
+
+		<!--
+		https://checkstyle.org/config_misc.html
+		-->
+
+		<!-- Checks the style of array type definitions. Some like Java style: public static void main(String[] args) and some like C style: public static void main(String args[]). -->
+		<module name="ArrayTypeStyle" />
+
+		<!-- Restricts usage of Unicode escape -->
+		<module name="AvoidEscapedUnicodeCharacters"/>
+
+		<!-- Controls the indentation between comments and surrounding code. Comments are indented at the same level as the surrounding code. -->
+		<module name="CommentsIndentation"/>
+
+		<!-- Checks correct indentation of Java code. -->
+		<module name="Indentation">
+			<property name="basicOffset" value="8" />
+			<property name="braceAdjustment" value="0" />
+			<property name="caseIndent" value="8" />
+			<property name="throwsIndent" value="8" />
+			<property name="arrayInitIndent" value="8" />
+			<property name="lineWrappingIndentation" value="8" />
+			<property name="forceStrictCondition" value="false" />
+		</module>
+
+		<!-- Checks whether file contains code. -->
+		<module name="NoCodeInFile"/>
+
+		<!-- Checks that the outer type name and the file name match. -->
+		<module name="OuterTypeFilename"/>
+
+		<!-- Checks for TODO: comments. -->
+		<module name="TodoComment">
+			<property name="format" value="TODO:" />
+		</module>
+
+		<!-- Checks that long constants are defined with an upper ell. That is 'L' and not 'l'. -->
+		<module name="UpperEll"/>
+
+
+		<!--
+		https://checkstyle.org/config_modifier.html
+		-->
+
+		<!-- Checks for implicit modifiers on nested types in classes and records. -->
+		<module name="ClassMemberImpliedModifier" />
+
+		<!-- Checks for implicit modifiers on interface members and nested types. -->
+		<module name="InterfaceMemberImpliedModifier">
+			<property name="violateImpliedPublicField" value="false" />
+			<property name="violateImpliedStaticField" value="false" />
+			<property name="violateImpliedFinalField" value="false" />
+			<property name="violateImpliedPublicMethod" value="false" />
+			<property name="violateImpliedAbstractMethod" value="true" />
+			<property name="violateImpliedPublicNested" value="false" />
+			<property name="violateImpliedStaticNested" value="false" />
+		</module>
+
+		<!-- Checks that the order of modifiers conforms to the suggestions in the JLS. -->
+		<module name="ModifierOrder"/>
+
+
+
+		<!--
+		https://checkstyle.org/config_naming.html
+		-->
+		<module name="AbbreviationAsWordInName">
+			<property name="ignoreFinal" value="false" />
+			<property name="ignoreStatic" value="false" />
+			<property name="ignoreStaticFinal" value="true" />
+			<property name="ignoreOverriddenMethods" value="true" />
+			<property name="allowedAbbreviationLength" value="0" />
+			<property name="allowedAbbreviations" value="XML,URL,CSV" />
+		</module>
+
+		<!-- Ensures that the names of abstract classes conforming to some pattern and check that abstract modifier exists. -->
+		<module name="AbstractClassName">
+			<property name="ignoreModifier" value="false" />
+			<property name="ignoreName" value="true" />
+		</module>
+
+		<!-- Checks that catch parameter names conform to a specified pattern. -->
+		<module name="CatchParameterName"/>
+
+		<!-- Checks that type parameter names conform to a specified pattern. -->
+		<module name="ClassTypeParameterName" />
+		<module name="InterfaceTypeParameterName"/>
+		<module name="MethodTypeParameterName"/>
+		<module name="RecordTypeParameterName"/>
+
+		<!-- Checks that constant names conform to a specified pattern. A constant is a static and final field or an interface/annotation field. -->
+		<module name="ConstantName" />
+
+		<!-- Checks that local, non-final variable names conform to a specified pattern -->
+		<module name="LocalVariableName">
+			<property name="format" value="^i|j|[a-z][_a-zA-Z0-9]{2,}$" />
+			<property name="allowOneCharVarInForLoop" value="true" />
+		</module>
+
+		<!-- Checks that local final variable names conform to a specified pattern -->
+		<module name="LocalFinalVariableName">
+			<property name="format" value="^[a-z][_a-zA-Z0-9]{2,}$" />
+		</module>
+
+		<!-- Checks that static variable names conform to a specified pattern -->
+		<module name="StaticVariableName">
+			<property name="format" value="^[a-z][_a-zA-Z0-9]{2,}$" />
+		</module>
+
+		<!-- Checks that parameter names conform to a specified pattern -->
+		<module name="ParameterName">
+			<property name="format" value="^[a-z][_a-zA-Z0-9]{2,}$" />
+		</module>
+
+		<!-- Checks that lambda parameter names conform to a specified pattern -->
+		<module name="LambdaParameterName">
+			<property name="format" value="^[a-z][_a-zA-Z0-9]{2,}$" />
+		</module>
+
+
+		<!-- Checks that record names conform to a specified pattern. -->
+		<module name="RecordComponentName">
+			<property name="format" value="^[a-z][_a-zA-Z0-9]{2,}$" />
+		</module>
+
+
+		<!-- Checks that pattern names conform to a specified pattern -->
+		<module name="PatternVariableName">
+			<property name="format" value="^[a-z][_a-zA-Z0-9]{2,}$" />
+		</module>
+
+
+		<!-- Checks that instance variable names conform to a specified pattern. -->
+		<module name="MemberName">
+			<property name="format" value="^[a-z][_a-zA-Z0-9]{2,}$" />
+		</module>
+
+		<!-- Checks that method names conform to a specified pattern. -->
+		<module name="MethodName">
+			<property name="format" value="^[a-z][_a-zA-Z]{2,}$" />
+			<property name="allowClassName" value="false" />
+		</module>
+
+		<!-- Checks that type names (interface, class, enum, annotation, record) conform to a specified pattern. -->
+		<module name="TypeName" />
+
+		<!-- Checks that package names conform to a specified pattern. -->
+		<module name="PackageName">
+			<property name="format" value="^[a-z]{2,}(\.[a-z]{2,})*$" />
+		</module>
+
+
+		<!--
+		https://checkstyle.org/config_whitespace.html
+		-->
+
+		<!-- Checks the padding of an empty for initializer; that is whether a white space is required at an empty for initializer, or such white space is forbidden. No check occurs if there is a line wrap at the initializer. -->
+		<module name="EmptyForInitializerPad">
+			<property name="option" value="nospace" />
+		</module>
+
+		<!--  Checks the padding of an empty for iterator; that is whether a white space is required at an empty for iterator, or such white space is forbidden. No check occurs if there is a line wrap at the iterator. -->
+		<module name="EmptyForIteratorPad">
+			<property name="option" value="nospace" />
+		</module>
+
+		<!-- Checks for empty line separators before package, all import declarations, fields, constructors, methods, nested classes, static initializers and instance initializers. -->
+		<module name="EmptyLineSeparator">
+			<property name="allowNoEmptyLineBetweenFields" value="false" />
+			<property name="allowMultipleEmptyLines" value="true" />
+			<property name="allowMultipleEmptyLinesInsideClassMembers" value="true" />
+		</module>
+
+		<!-- Checks that the whitespace around the Generic tokens (angle brackets) "<" and ">" are correct to the typical convention -->
+		<module name="GenericWhitespace" />
+
+		<!-- Checks the padding between the identifier of a method definition, constructor definition, method call, or constructor invocation; and the left parenthesis of the parameter list. -->
+		<module name="MethodParamPad">
+			<property name="allowLineBreaks" value="false" />
+			<property name="option" value="nospace" />
+		</module>
+
+		<!-- Checks that chosen statements are not line-wrapped. By default, this Check restricts wrapping import and package statements, but it's possible to check any statement.  -->
+		<module name="NoLineWrap">
+			<property name="tokens" value="PACKAGE_DEF, IMPORT, STATIC_IMPORT, CLASS_DEF, METHOD_DEF, ENUM_DEF, INTERFACE_DEF, RECORD_DEF" />
+		</module>
+
+		<!-- Checks that there is no whitespace after a token.  -->
+		<module name="NoWhitespaceAfter" />
+
+		<!-- Checks that there is no whitespace before a token.  -->
+		<module name="NoWhitespaceBefore" />
+
+		<!-- Checks that there is no whitespace before the colon in a switch block. -->
+		<module name="NoWhitespaceBeforeCaseDefaultColon"/>
+
+		<!--  Checks the policy on how to wrap lines on operators. -->
+		<module name="OperatorWrap">
+			<property name="option" value="nl" />
+		</module>
+
+		<!-- Checks the policy on the padding of parentheses; that is whether a space is required after a left parenthesis and before a right parenthesis, or such spaces are forbidden. -->
+		<module name="ParenPad">
+			<property name="option" value="nospace" />
+		</module>
+
+		<!--  Checks line wrapping with separators. -->
+		<module name="SeparatorWrap">
+			<property name="option" value="eol" />
+		</module>
+
+		<!-- Checks the policy on the padding of parentheses for typecasts. -->
+		<module name="TypecastParenPad">
+			<property name="option" value="nospace" />
+		</module>
+
+		<!-- Checks that a token is followed by whitespace, with the exception that it does not check for whitespace after the semicolon of an empty for iterator -->
+		<module name="WhitespaceAfter" />
+
+		<!-- Checks that a token is surrounded by whitespace. -->
+		<module name="WhitespaceAround" />
+
+	</module>
+
+</module>
